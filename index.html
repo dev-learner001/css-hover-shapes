@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS 形状悬停效果</title>
+  <style>
+    /* ==================== 基础设置 ==================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;              /* 所有形状横向排列并整体居中 */
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 64px;                  /* 形状之间的间距 */
+      padding: 40px;
+      background-color: #17171f;  /* 深色背景 */
+    }
+
+    /* ==================== 形状公共样式 ==================== */
+    .shape {
+      width: 120px;
+      height: 120px;
+      display: flex;              /* 让内部的 "hover" 文字居中 */
+      justify-content: center;
+      align-items: center;
+      /* 默认阴影：颜色光晕向下偏移 16px */
+      box-shadow: 0 16px 32px -6px var(--glow);
+      /* 过渡动画：位置与阴影平滑变化 */
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    /* 形状中间的 "hover" 文字：默认透明隐藏 */
+    .shape::after {
+      content: "hover";
+      color: #fff;
+      font: 600 18px/1 "Segoe UI", Arial, sans-serif;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+
+    /* ================ 鼠标滑过时的变化 ================ */
+    .shape:hover {
+      transform: translateY(-10px);       /* ① 位置上移 10px */
+      box-shadow: 0 0 32px var(--glow);   /* ② 阴影偏移量变为 0（光晕均匀包裹） */
+    }
+
+    .shape:hover::after {
+      opacity: 1;                         /* ③ 形状中间出现 "hover" 字样 */
+    }
+
+    /* ==================== 圆角形状 ==================== */
+    .square     { border-radius: 0; }      /* 正方形 */
+    .rounded-sm { border-radius: 22px; }   /* 小圆角正方形 */
+    .rounded-lg { border-radius: 34px; }   /* 大圆角矩形 */
+    .circle     { border-radius: 50%; }    /* 圆形 */
+
+    /* ==================== 颜色样式 ==================== */
+    /* --glow 变量保存每个形状的光晕颜色，供 box-shadow 使用 */
+    .coral {
+      --glow: rgba(255, 85, 55, .6);
+      background: linear-gradient(160deg, #ff7e52, #ff4128);
+    }
+
+    .emerald {
+      --glow: rgba(40, 200, 115, .55);
+      background: linear-gradient(160deg, #3fdd88, #1fb964);
+    }
+
+    .orchid {
+      --glow: rgba(168, 136, 190, .5);
+      background: linear-gradient(160deg, #b395cb, #8e6fa9);
+    }
+
+    .amber {
+      --glow: rgba(255, 168, 62, .8);
+      background: linear-gradient(160deg, #ffd36e, #ffa03c);
+    }
+
+    .teal {
+      --glow: rgba(80, 170, 150, .5);
+      background: linear-gradient(160deg, #64b5a1, #3f9483);
+    }
+
+    .lavender {
+      --glow: rgba(180, 155, 225, .65);
+      background: linear-gradient(160deg, #c4aded, #a385d8);
+    }
+  </style>
+</head>
+<body>
+  <div class="shape square     coral"></div>
+  <div class="shape rounded-sm emerald"></div>
+  <div class="shape rounded-lg orchid"></div>
+  <div class="shape circle     amber"></div>
+  <div class="shape rounded-sm teal"></div>
+  <div class="shape circle     lavender"></div>
+</body>
+</html>
